@@ -1,0 +1,15 @@
+# Default Player Data Set-Up
+# ----------------------------------------
+# Do not edit this comment block up here,
+# use them as reference when you mess something
+# up, or if the config doesn't look correct.
+# ----------------------------------------
+# Players:
+#   UUIDs:
+#     {target's UUID}:
+#        Name: {String name}
+#        {Skill name}: {Integer level 1-8}
+# ----------------------------------------
+
+Players:
+  UUIDs:

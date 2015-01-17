@@ -1,0 +1,9 @@
+name: mcMastery
+author: Dracomeister
+main: ga.dracomeister.mcmastery.Main
+version: 1.0
+
+commands:
+   mcMastery:
+      description: View the mcMastery Skills GUI.
+      usage: /<command>

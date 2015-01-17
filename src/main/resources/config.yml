@@ -1,0 +1,22 @@
+# Default Configuration Set-Up
+# ----------------------------------------
+# Do not edit this comment block up here,
+# use them as reference when you mess something
+# up, or if the config doesn't look correct.
+# ----------------------------------------
+# Defaults:
+#   Skill-Limit: 8
+#   Skill-Step: 5
+# Mob-Data:
+#   Prowess: 2
+#   Fortitude: 2
+#   Precision: 1
+# ----------------------------------------
+
+Defaults:
+  Skill-Limit: 8
+  Skill-Step: 5
+Mob-Data:
+  Prowess: 2
+  Fortitude: 2
+  Precision: 1
