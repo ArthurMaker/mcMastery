@@ -1,6 +1,5 @@
 package ga.dracomeister.mcmastery;
 
-import ga.dracomeister.mcmastery.resources.mcMasteryAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Sound;
@@ -10,25 +9,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import static ga.dracomeister.mcmastery.resources.AttributesAccess.checkPlayerData;
-import static ga.dracomeister.mcmastery.resources.AttributesAccess.savePlayerData;
-import static ga.dracomeister.mcmastery.resources.Utils.createItem;
-import static ga.dracomeister.mcmastery.resources.Utils.createList;
+import static ga.dracomeister.mcmastery.resources.Assets.DefaultAssets.SKILLS_LIMIT;
+import static ga.dracomeister.mcmastery.resources.Assets.DefaultAssets.SKILLS_STEP;
+import static ga.dracomeister.mcmastery.resources.Assets.PlayerAssets.*;
+import static ga.dracomeister.mcmastery.resources.AssetsHandler.savePlayerData;
+import static ga.dracomeister.mcmastery.resources.Utils.*;
 import static org.bukkit.ChatColor.*;
 import static org.bukkit.Material.*;
 
 public class GUIHandler implements Listener {
 
-    private static int skillLimit = mcMasteryAPI.SKILLS_LIMIT.getData();
-    private static int skillStep = mcMasteryAPI.SKILLS_STEP.getData();
+    private static int skillLimit = SKILLS_LIMIT.getData();
+    private static int skillStep = SKILLS_STEP.getData();
 
     public static Inventory SkillsGUI(Player p) {
         checkPlayerData(p);
 
-        int Prowess = mcMasteryAPI.PROWESS.getData(p);
-        int Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
-        int Precision = mcMasteryAPI.PRECISION.getData(p);
-        int Agility = mcMasteryAPI.AGILITY.getData(p);
+        int Prowess = PROWESS.getData(p);
+        int Fortitude = FORTITUDE.getData(p);
+        int Precision = PRECISION.getData(p);
+        int Agility = AGILITY.getData(p);
 
         int limit = skillLimit - (Prowess + Fortitude + Precision + Agility);
 
@@ -114,10 +114,10 @@ public class GUIHandler implements Listener {
             int slot = e.getSlot();
             Player p = (Player) e.getWhoClicked();
 
-            int Prowess = mcMasteryAPI.PROWESS.getData(p);
-            int Precision = mcMasteryAPI.PRECISION.getData(p);
-            int Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
-            int Agility = mcMasteryAPI.AGILITY.getData(p);
+            int Prowess = PROWESS.getData(p);
+            int Precision = PRECISION.getData(p);
+            int Fortitude = FORTITUDE.getData(p);
+            int Agility = AGILITY.getData(p);
             int limit = skillLimit - (Prowess + Fortitude + Precision + Agility);
 
             int entry;
@@ -126,34 +126,34 @@ public class GUIHandler implements Listener {
                 if (entry > limit + Prowess) {
                     entry = limit + Prowess;
                 }
-                mcMasteryAPI.PROWESS.setData(p, entry);
+                PROWESS.setData(p, entry);
             }
             if (slot >= 19 && slot <= 26) {
                 entry = (slot - 19) + 1;
                 if (entry > limit + Fortitude) {
                     entry = limit + Fortitude;
                 }
-                mcMasteryAPI.FORTITUDE.setData(p, entry);
+                FORTITUDE.setData(p, entry);
             }
             if (slot >= 28 && slot <= 35) {
                 entry = (slot - 28) + 1;
                 if (entry > limit + Precision) {
                     entry = limit + Precision;
                 }
-                mcMasteryAPI.PRECISION.setData(p, entry);
+                PRECISION.setData(p, entry);
             }
             if (slot >= 37 && slot <= 44) {
                 entry = (slot - 37) + 1;
                 if (entry > limit + Agility) {
                     entry = limit + Agility;
                 }
-                mcMasteryAPI.AGILITY.setData(p, entry);
+                AGILITY.setData(p, entry);
             }
-            
-            if (slot == 9) mcMasteryAPI.PROWESS.setData(p, 0);
-            if (slot == 18) mcMasteryAPI.FORTITUDE.setData(p, 0);
-            if (slot == 27) mcMasteryAPI.PRECISION.setData(p, 0);
-            if (slot == 36) mcMasteryAPI.AGILITY.setData(p, 0);
+
+            if (slot == 9) PROWESS.setData(p, 0);
+            if (slot == 18) FORTITUDE.setData(p, 0);
+            if (slot == 27) PRECISION.setData(p, 0);
+            if (slot == 36) AGILITY.setData(p, 0);
 
             p.playSound(p.getLocation(), Sound.SUCCESSFUL_HIT, 1, 1);
 

@@ -10,8 +10,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.Random;
 
-import static ga.dracomeister.mcmastery.resources.AttributesAccess.checkPlayerData;
-import static ga.dracomeister.mcmastery.resources.mcMasteryAPI.*;
+import static ga.dracomeister.mcmastery.resources.Assets.DefaultAssets.*;
+import static ga.dracomeister.mcmastery.resources.Assets.PlayerAssets.*;
+import static ga.dracomeister.mcmastery.resources.Utils.checkPlayerData;
 
 public class DamageHandler implements Listener {
 
