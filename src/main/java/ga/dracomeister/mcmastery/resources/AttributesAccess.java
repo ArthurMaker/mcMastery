@@ -56,11 +56,13 @@ public class AttributesAccess {
         double Prowess = mcMasteryAPI.PROWESS.getData(p);
         double Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
         double Precision = mcMasteryAPI.PRECISION.getData(p);
+        double Agility = mcMasteryAPI.AGILITY.getData(p);
 
-        if (Prowess + Fortitude + Precision > skillLimit) {
+        if (Prowess + Fortitude + Precision + Agility > skillLimit) {
             mcMasteryAPI.PROWESS.setData(p, 0);
             mcMasteryAPI.FORTITUDE.setData(p, 0);
             mcMasteryAPI.PRECISION.setData(p, 0);
+            mcMasteryAPI.AGILITY.setData(p, 0);
         }
         savePlayerData();
     }

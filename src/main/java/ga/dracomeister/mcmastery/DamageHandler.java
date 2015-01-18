@@ -28,8 +28,8 @@ public class DamageHandler implements Listener {
             Player v = (Player) e.getEntity();
             checkPlayerData(v);
 
-            double vFortitude = FORTITUDE.getData(v);
-            double defenseMultiplier = 1 - ((vFortitude * skillStep) / 100);
+            double Fortitude = FORTITUDE.getData(v);
+            double defenseMultiplier = 1 - ((Fortitude * skillStep) / 100);
 
             d *= defenseMultiplier;
             Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
@@ -46,6 +46,7 @@ public class DamageHandler implements Listener {
         double Prowess; //Attacker Power
         double Precision; //Attacker Critical Chance
         double Fortitude; //Victim Defense
+        double Agility; //Victim Dodge Chance
 
         double attackMultiplier = 1;
         double defenseMultiplier = 1;
@@ -60,19 +61,27 @@ public class DamageHandler implements Listener {
         }
         if (v instanceof Player) {
             checkPlayerData((Player) v);
-            Fortitude = FORTITUDE.getData((Player) a);
+            Fortitude = FORTITUDE.getData((Player) v);
+            Agility = AGILITY.getData((Player) v);
         } else {
             Fortitude = MOB_FORTITUDE.getData();
+            Agility = MOB_AGILITY.getData();
         }
         if (Precision * skillStep >= random.nextInt(100)) {
             attackMultiplier += 1;
             Bukkit.getServer().broadcastMessage("Critical!");
         }
+
         attackMultiplier += (Prowess * skillStep) / 100;
         d *= attackMultiplier;
         Bukkit.getServer().broadcastMessage("OutgoingB " + d + " Mutliplier: " + attackMultiplier);
 
-        defenseMultiplier -= (Fortitude * skillStep) / 100;
+        if (Agility * skillStep >= random.nextInt(100)) {
+            defenseMultiplier = 0;
+            Bukkit.getServer().broadcastMessage("Dodge!");
+        }
+
+        if (defenseMultiplier != 0) defenseMultiplier -= (Fortitude * skillStep) / 100;
         d *= defenseMultiplier;
         Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
 

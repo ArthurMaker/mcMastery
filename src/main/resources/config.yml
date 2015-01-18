@@ -5,18 +5,20 @@
 # up, or if the config doesn't look correct.
 # ----------------------------------------
 # Defaults:
-#   Skill-Limit: 8
+#   Skill-Limit: 12
 #   Skill-Step: 5
 # Mob-Data:
 #   Prowess: 2
 #   Fortitude: 2
 #   Precision: 1
+#   Agility: 1
 # ----------------------------------------
 
 Defaults:
-  Skill-Limit: 8
+  Skill-Limit: 12
   Skill-Step: 5
 Mob-Data:
   Prowess: 2
   Fortitude: 2
   Precision: 1
+  Agility: 1

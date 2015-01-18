@@ -6,17 +6,20 @@ import org.bukkit.entity.Player;
 import static ga.dracomeister.mcmastery.resources.AttributesAccess.getPlayerData;
 
 public enum mcMasteryAPI {
+
     SKILLS_LIMIT("Defaults.Skill-Limit"),
     SKILLS_STEP("Defaults.Skill-Step"),
 
     MOB_PROWESS("Mob-Data.Prowess"),
     MOB_FORTITUDE("Mob-Data.Fortitude"),
     MOB_PRECISION("Mob-Data.Precision"),
+    MOB_AGILITY("Mob-Data.Agility"),
 
     PLAYER_NAME("Players.UUIDs.%s.Name"),
     PROWESS("Players.UUIDs.%s.Prowess"),
     FORTITUDE("Players.UUIDs.%s.Fortitude"),
-    PRECISION("Players.UUIDs.%s.Precision");
+    PRECISION("Players.UUIDs.%s.Precision"),
+    AGILITY("Players.UUIDs.%s.Agility");
 
     private final String path;
 

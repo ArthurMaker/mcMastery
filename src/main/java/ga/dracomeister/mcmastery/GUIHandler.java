@@ -28,59 +28,74 @@ public class GUIHandler implements Listener {
         int Prowess = mcMasteryAPI.PROWESS.getData(p);
         int Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
         int Precision = mcMasteryAPI.PRECISION.getData(p);
-        
-        int limit = skillLimit - (Prowess + Fortitude + Precision);
+        int Agility = mcMasteryAPI.AGILITY.getData(p);
 
-        Inventory inv = Bukkit.createInventory(null, 45, DARK_GRAY.toString() + BOLD + limit + " Skill Points");
+        int limit = skillLimit - (Prowess + Fortitude + Precision + Agility);
+
+        Inventory inv = Bukkit.createInventory(null, 54, DARK_GRAY.toString() + BOLD + limit + " Skill Points");
 
         inv.setItem(9, createItem(DIAMOND_SWORD, 1, (byte) 0, RED.toString() + BOLD + "Prowess", createList(YELLOW + "Click to reset this skill.")));
         inv.setItem(18, createItem(DIAMOND_CHESTPLATE, 1, (byte) 0, BLUE.toString() + BOLD + "Fortitude", createList(YELLOW + "Click to reset this skill.")));
         inv.setItem(27, createItem(FLINT, 1, (byte) 0, GOLD.toString() + BOLD + "Precision", createList(YELLOW + "Click to reset this skill.")));
+        inv.setItem(36, createItem(FEATHER, 1, (byte) 0, LIGHT_PURPLE.toString() + BOLD + "Agility", createList(YELLOW + "Click to reset this skill.")));
 
         int c;
         for (c = 0; c < 8; c++) {
             inv.setItem(c + 10, createItem(WOOL, (c + 1),
                     DyeColor.GRAY.getData(), RED +
                             "Prowess Level " + (c + 1),
-                    createList(YELLOW + "Click to adjust this skill level to " + ((c + 1) * skillStep) + "%")));
+                    createList(YELLOW + "Increase damage by : "
+                            + GOLD.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
         for (c = 0; c < 8; c++) {
             inv.setItem(c + 19, createItem(WOOL, (c + 1),
                     DyeColor.GRAY.getData(), BLUE +
                             "Fortitude Level " + (c + 1),
-                    createList(YELLOW + "Click to adjust this skill level to " + ((c + 1) * skillStep) + "%")));
+                    createList(YELLOW + "Decrease incoming damage by : "
+                            + GOLD.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
         for (c = 0; c < 8; c++) {
             inv.setItem(c + 28, createItem(WOOL, (c + 1),
                     DyeColor.GRAY.getData(), GOLD +
                             "Precision Level " + (c + 1),
-                    createList(YELLOW + "Click to adjust this skill level to " + ((c + 1) * skillStep) + "%")));
+                    createList(YELLOW + "Increase critical chances by : "
+                            + GOLD.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
-
         for (c = 0; c < 8; c++) {
-            inv.setItem(c + 19, createItem(WOOL, (c + 1),
-                    DyeColor.GRAY.getData(), BLUE +
-                            "Fortitude Level " + (c + 1),
-                    createList(YELLOW + "Click to adjust this skill level to " + ((c + 1) * skillStep) + "%")));
+            inv.setItem(c + 37, createItem(WOOL, (c + 1),
+                    DyeColor.GRAY.getData(), LIGHT_PURPLE +
+                            "Agility Level " + (c + 1),
+                    createList(YELLOW + "Increase dodging chances by : "
+                            + GOLD.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
 
         for (c = 0; c < Prowess; c++) {
             inv.setItem(c + 10, createItem(WOOL, (c + 1),
                     DyeColor.RED.getData(), RED +
                             "Prowess Level " + (c + 1),
-                    createList(GREEN + "Skill level at " + ((c + 1) * skillStep) + "%")));
+                    createList(GREEN + "Power at : "
+                            + DARK_GREEN.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
         for (c = 0; c < Fortitude; c++) {
             inv.setItem(c + 19, createItem(WOOL, (c + 1),
                     DyeColor.CYAN.getData(), BLUE +
                             "Fortitude Level " + (c + 1),
-                    createList(GREEN + "Skill level at " + ((c + 1) * skillStep) + "%")));
+                    createList(GREEN + "Defense at : "
+                            + DARK_GREEN.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
         for (c = 0; c < Precision; c++) {
             inv.setItem(c + 28, createItem(WOOL, (c + 1),
                     DyeColor.ORANGE.getData(), GOLD +
                             "Precision Level " + (c + 1),
-                    createList(GREEN + "Skill level at " + ((c + 1) * skillStep) + "%")));
+                    createList(GREEN + "Critical chances at : "
+                            + DARK_GREEN.toString() + BOLD + ((c + 1) * skillStep) + "%")));
+        }
+        for (c = 0; c < Agility; c++) {
+            inv.setItem(c + 37, createItem(WOOL, (c + 1),
+                    DyeColor.PURPLE.getData(), LIGHT_PURPLE +
+                            "Agility Level " + (c + 1),
+                    createList(GREEN + "Dodging chances at : "
+                            + DARK_GREEN.toString() + BOLD + ((c + 1) * skillStep) + "%")));
         }
         return inv;
     }
@@ -100,9 +115,10 @@ public class GUIHandler implements Listener {
             Player p = (Player) e.getWhoClicked();
 
             int Prowess = mcMasteryAPI.PROWESS.getData(p);
-            int Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
             int Precision = mcMasteryAPI.PRECISION.getData(p);
-            int limit = skillLimit - (Prowess + Fortitude + Precision);
+            int Fortitude = mcMasteryAPI.FORTITUDE.getData(p);
+            int Agility = mcMasteryAPI.AGILITY.getData(p);
+            int limit = skillLimit - (Prowess + Fortitude + Precision + Agility);
 
             int entry;
             if (slot >= 10 && slot <= 17) {
@@ -126,9 +142,18 @@ public class GUIHandler implements Listener {
                 }
                 mcMasteryAPI.PRECISION.setData(p, entry);
             }
+            if (slot >= 37 && slot <= 44) {
+                entry = (slot - 37) + 1;
+                if (entry > limit + Agility) {
+                    entry = limit + Agility;
+                }
+                mcMasteryAPI.AGILITY.setData(p, entry);
+            }
+            
             if (slot == 9) mcMasteryAPI.PROWESS.setData(p, 0);
             if (slot == 18) mcMasteryAPI.FORTITUDE.setData(p, 0);
             if (slot == 27) mcMasteryAPI.PRECISION.setData(p, 0);
+            if (slot == 36) mcMasteryAPI.AGILITY.setData(p, 0);
 
             p.playSound(p.getLocation(), Sound.SUCCESSFUL_HIT, 1, 1);
 
