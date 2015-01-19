@@ -1,6 +1,6 @@
 package ga.dracomeister.mcmastery;
 
-import org.bukkit.Bukkit;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,10 +30,17 @@ public class DamageHandler implements Listener {
             checkPlayerData(v);
 
             double Fortitude = FORTITUDE.getData(v);
-            double defenseMultiplier = 1 - ((Fortitude * skillStep) / 100);
+            double Agility = AGILITY.getData(v);
+            double defenseMultiplier = 1;
 
+            if (Agility * skillStep >= random.nextInt(100)) {
+                defenseMultiplier = 0;
+                v.sendMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Landed gracefully.");
+            }
+
+            if (defenseMultiplier != 0) defenseMultiplier -= (Fortitude * skillStep) / 100;
             d *= defenseMultiplier;
-            Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
+            //Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
             e.setDamage(d);
         }
     }
@@ -70,21 +77,23 @@ public class DamageHandler implements Listener {
         }
         if (Precision * skillStep >= random.nextInt(100)) {
             attackMultiplier += 1;
-            Bukkit.getServer().broadcastMessage("Critical!");
+            a.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Critical attack on " + v.getName() + "!");
+            v.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + a.getName() + " attacked critically on you!");
         }
 
         attackMultiplier += (Prowess * skillStep) / 100;
         d *= attackMultiplier;
-        Bukkit.getServer().broadcastMessage("OutgoingB " + d + " Mutliplier: " + attackMultiplier);
+        //Bukkit.getServer().broadcastMessage("OutgoingB " + d + " Mutliplier: " + attackMultiplier);
 
         if (Agility * skillStep >= random.nextInt(100)) {
             defenseMultiplier = 0;
-            Bukkit.getServer().broadcastMessage("Dodge!");
+            a.sendMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + v.getName() + " dodged your attack.");
+            v.sendMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Dodged " + a.getName() + "'s attack.");
         }
 
         if (defenseMultiplier != 0) defenseMultiplier -= (Fortitude * skillStep) / 100;
         d *= defenseMultiplier;
-        Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
+        //Bukkit.getServer().broadcastMessage("IncomingB " + d + " Mutliplier: " + defenseMultiplier);
 
         e.setDamage(d);
     }
